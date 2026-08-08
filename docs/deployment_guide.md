@@ -58,10 +58,10 @@ Before starting the deployment, ensure access to the following infrastructure co
 3. Build required **DAX Measures** (e.g., Total Token Cost, Error Rate %, Daily Active Users).
 4. Publish the executive Power BI report tracking platform adoption, API usage, and token expenditure.
 
-![Data Model OLAP](images/Data%20Model%20(OLAP).png)
+![Data Model OLAP](../images/Data%20Model%20(OLAP).png)
 *Figure 1: Star Schema relationship design configured within the Semantic Model.*
 
-![Dashboard Screenshot](images/Dashboard%20Screenshot.png)
+![Dashboard Screenshot](../images/Dashboard%20Screenshot.png)
 *Figure 2: Published Power BI Executive Dashboard displaying historical analytics and financial telemetry.*
 
 ---
@@ -72,7 +72,7 @@ Before starting the deployment, ensure access to the following infrastructure co
 1. Create a Fabric **Eventstream** connected to Neon DB via PostgreSQL CDC source. Set data event serialization format to **"Analytics-ready events & auto-updated schema"**.
 2. Route the live message stream directly into an **Eventhouse / KQL Database** named `AI_Realtime_KQLDB`.
 
-![Real-time Fabric Flow](images/Real-time%20Fabric%20Flow.png)
+![Real-time Fabric Flow](../images/Real-time%20Fabric%20Flow.png)
 *Figure 3: Real-time telemetry streaming architecture utilizing Eventstream and KQL Database.*
 
 ### Step 3.2: Real-Time Dashboard & Operational Alerting
@@ -80,7 +80,7 @@ Before starting the deployment, ensure access to the following infrastructure co
 2. Construct a **Real-Time Dashboard** in Microsoft Fabric. Map each individual KQL query to a dedicated visual tile monitoring live message throughput, short-term usage spikes, and system errors.
 3. Configure automated **Data Alerts**: Set threshold rules to send email/Teams notifications when message error counts breach system limits (>100 errors within a 10-minute window).
 
-![Real-time Dashboard Screenshot](images/Real-time%20Dashboard%20Screenshot.png)
+![Real-time Dashboard Screenshot](../images/Real-time%20Dashboard%20Screenshot.png)
 *Figure 4: Real-Time Operational Dashboard tracking live telemetry and system error spikes.*
 
 ---
@@ -95,5 +95,5 @@ Before starting the deployment, ensure access to the following infrastructure co
 2. Attach **On Failure** notification triggers to each activity node to dispatch execution failure alerts directly to the engineering channel.
 3. Schedule daily automated pipeline execution at `04:00 UTC+7` (21:00 UTC).
 
-![Fabric Pipeline Flow](images/Fabric%20Pipeline%20Flow.png)
+![Fabric Pipeline Flow](../images/Fabric%20Pipeline%20Flow.png)
 *Figure 5: Master Data Pipeline orchestrating batch ingestion, transformations, warehouse loads, and failure alerts.*
