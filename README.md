@@ -12,7 +12,7 @@
 ## 2. Source Data Architecture
 
 * **Database Engine**: **Neon DB** (Serverless PostgreSQL) serving as the core transactional OLTP store.
-* **Data Schema**: Normalized enterprise OLTP structure tracking entity lifecycles, including `users`, `user_subscriptions`, `conversations`, `messages`, `reviews`, and `models`.
+* **Data Schema**: Normalized enterprise OLTP structure tracking entity lifecycles, including `users`, `user_subscriptions`, `conversations`, `messages`, `app_reviews`,`message_reviews`,`plans` and `models`.
 * **Business Context**: Captures interaction telemetry from Grade 12 students. Under the current EdTech service model, access is controlled via token allocation (capped free allocations vs. unlimited tiers) rather than direct per-transaction billing.
 * **OLTP Data Model**:
   ![Schema OLTP](images/Schema%20OLTP.png)
