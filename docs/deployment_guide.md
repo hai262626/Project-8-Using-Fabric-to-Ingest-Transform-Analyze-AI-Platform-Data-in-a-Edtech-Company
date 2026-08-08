@@ -65,12 +65,12 @@ Before starting the deployment, ensure you have access to the following componen
 ### Step 3.1: Streaming Setup (Eventstream & KQL Database)
 1. Create an **Eventstream** connected to PostgreSQL DB CDC. Recommend to choose the format of CDC as "Analytics-ready events & auto-updated schema"
 2. Route the live message stream directly into an **Eventhouse / KQL Database** named.
-
+![Pipeline Real Time](images/Real-time%20Fabric%20Flow.png)
 ### Step 3.2: Real-Time Dashboard & Alerting
 1. Run table schema setup and mapping scripts from `kql_code_for_fabric/kql_for_event_dashboard.sql`.
 2. Construct a **Real-Time Dashboard** displaying live message throughput, short-term usage spikes, and error rates. Each KQL query equals to 1 dashboard.
 3. Configure automated **Data Alerts**: Trigger email/Teams notifications when message error counts breach system limits (>100 errors in a 10-minute window).
-
+![Pipeline Dashboard](images/Real-time%20Dashboard%20Screenshot.png)
 ---
 
 ## 4. Create Pipeline Orchestration & End-to-End Execution
@@ -82,4 +82,4 @@ Before starting the deployment, ensure you have access to the following componen
    * `Semantic Model Refresh Activity` (Triggers Power BI dataset update).
 2. Attach **On Failure** notification triggers from each activity node to dispatch execution failure logs to the engineering alert channel.
 3. Schedule daily execution at `04:00 UTC +7`(Or anytime you want).
-[!Pipeline](Fabric Pipeline Flow.png)
+[!Pipeline](images/Fabric%20Pipeline%20Flow.png)
