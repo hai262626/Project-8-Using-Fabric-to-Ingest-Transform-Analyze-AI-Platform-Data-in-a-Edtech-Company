@@ -45,7 +45,8 @@ Before starting the deployment, ensure you have access to the following componen
    **Deploy Loading Stored Procedures**:
    * **Truncate + Insert Procedures**: Deploy SPs executing `TRUNCATE` and `INSERT` logic for current-snapshot dimensions (`mart.dim_users`) and transaction facts (`mart.fact_messages`).
    * **SCD Type 2 Procedure**: Deploy `sp_load_dim_models_scd2` executing `UPDATE` (expire old version) + `INSERT` (activate new version) logic for LLM token pricing in `mart.dim_models`.
-   (All created SP already have log insert, therefore, no need to insert log manually or create SP for log)
+
+(All created SP already have log insert, therefore, no need to insert log manually or create SP for log)
 
 
 ### Step 2.4: Semantic Model & Power BI Reporting
@@ -81,3 +82,4 @@ Before starting the deployment, ensure you have access to the following componen
    * `Semantic Model Refresh Activity` (Triggers Power BI dataset update).
 2. Attach **On Failure** notification triggers from each activity node to dispatch execution failure logs to the engineering alert channel.
 3. Schedule daily execution at `04:00 UTC +7`(Or anytime you want).
+!Pipeline](Fabric Pipeline Flow.png)
