@@ -41,6 +41,7 @@
 * **Data Ingestion (Bronze)**: Daily scheduled batch pipelines ingest 8 transactional tables concurrently from Neon DB into the `raw` schema of the Data Lakehouse to preserve raw source state.
 * **Transformation & Staging (Silver)**: Utilizing **Dataflow Gen2**, raw ingestion datasets are cleansed by stripping unreferenced metadata/comments, casting boolean event flags, and enforcing strict data typing before landing in the `staging` schema.
 * **Star Schema Modeling & Warehousing (Gold)**: Stored procedures execute **Cross-Database Queries** to transform `staging` entities into Star Schema Dimensions and Facts within the `mart` schema of the Data Warehouse. Dimensions utilize overwrite patterns, except for `dim_models`, which implements **SCD Type 2** tracking to preserve historical token price changes via surrogate keys (`model_sk`).
+![Schema OLAP](images/Data%20Model%20(OLAP).png)
 * **Semantic Layer & Executive Reporting**: On successful warehouse load, the **Semantic Model** triggers an automated refresh to serve executive Power BI reports tracking daily active users, subscription churn, error distribution, and cumulative LLM token expenditures.
 * **Pipeline Monitoring & Resilience**: Integrated try-catch logic and pipeline activity triggers capture execution failures at any stage, firing real-time alerts to the dedicated Microsoft Teams channel for rapid incident response.
 
