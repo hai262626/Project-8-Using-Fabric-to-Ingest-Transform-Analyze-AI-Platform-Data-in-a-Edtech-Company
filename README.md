@@ -15,7 +15,7 @@
 * **Data Schema**: Normalized enterprise OLTP structure tracking entity lifecycles, including `users`, `user_subscriptions`, `conversations`, `messages`, `reviews`, and `models`.
 * **Business Context**: Captures interaction telemetry from Grade 12 students. Under the current EdTech service model, access is controlled via token allocation (capped free allocations vs. unlimited tiers) rather than direct per-transaction billing.
 * **OLTP Data Model**:
-  ![Schema OLTP](images/Data%20Model%20(OLTP).png)
+  ![Schema OLTP](images/Schema%20OLTP.png)
 
 > 💡 **Source Data Repository**: For data generation logic, mock datasets, and DDL scripts, please visit the [Source Data Repository](https://github.com/hai262626/fake-AI-data).
 
