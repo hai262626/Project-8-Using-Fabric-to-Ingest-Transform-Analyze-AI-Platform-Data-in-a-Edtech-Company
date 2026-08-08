@@ -23,6 +23,11 @@ Before starting the deployment, ensure access to the following infrastructure co
    * `raw`: Landing zone for raw batch ingestions replicated from Neon DB.
    * `staging`: Target for cleansed and formatted intermediate datasets.
 3. Ingest raw source tables directly from Neon DB into `AI_Lakehouse.raw`, preserving original source state.
+![Source Connectivity](../images/Source%20Connection.png)
+*Figure 1: Direct replication from Neon DB into Fabric Lakehouse raw schema.*
+
+![Destination Lakehouse](../images/Destination%20Connection.png)
+*Figure 2: Target Lakehouse for transformed staging data.*
 
 ### Step 2.2: Staging Transformation via Dataflow Gen2
 1. Create a **Dataflow Gen2** pipeline targeting `AI_Lakehouse.raw` as source.
@@ -31,6 +36,8 @@ Before starting the deployment, ensure access to the following infrastructure co
    * Derive boolean flag fields (`is_error`, `is_attached_file`, `is_ai_generated_file`) formatted as `BIT`/`Boolean` to replace unstructured text logs.
    * Generate `dim_date` calendar entity and filter out redundant raw tables.
 3. Save and load transformed staging datasets directly into `AI_Lakehouse.staging`.
+![Dataflow Gen2 Transformation](../images/Dataflow%20Gen2%20Transformation.png)
+*Figure 3: Dataflow Gen2 transformation pipeline.*
 
 ### Step 2.3: Data Warehouse DDLs & Stored Procedure Deployment
 1. Create a **Data Warehouse** named `AI_Warehouse`, open a new SQL Query window, and initialize schemas:
@@ -46,6 +53,8 @@ Before starting the deployment, ensure access to the following infrastructure co
 3. **Deploy Core Loading Stored Procedures**:
    * **Truncate + Insert Procedures**: Deploy SPs executing `TRUNCATE` and `INSERT` logic for current-snapshot dimensions (`mart.dim_users`, `mart.dim_date`) and transaction facts (`mart.fact_messages`).
    * **SCD Type 2 Procedure**: Deploy `sp_load_dim_models_scd2` executing `UPDATE` (expire old versions) + `INSERT` (activate new versions) logic for LLM token pricing in `mart.dim_models`.
+![Data Warehouse SQL](../images/Data%20Warehouse.png)
+*Figure 4: SQL Query window executing DDLs and Stored Procedures for warehouse deployment.*
 
 > ℹ️ **Note on Audit Logging**: All deployed Stored Procedures feature built-in `TRY...CATCH` exception handling and self-logging routines that write execution start times, row counts, and runtime errors directly into `audit.pipeline_logs`. No manual log insertion or separate logging procedure is required.
 
@@ -59,10 +68,10 @@ Before starting the deployment, ensure access to the following infrastructure co
 4. Publish the executive Power BI report tracking platform adoption, API usage, and token expenditure.
 
 ![Data Model OLAP](../images/Data%20Model%20(OLAP).png)
-*Figure 1: Star Schema relationship design configured within the Semantic Model.*
+*Figure 5: Star Schema relationship design configured within the Semantic Model.*
 
 ![Dashboard Screenshot](../images/Dashboard%20Screenshot.png)
-*Figure 2: Published Power BI Executive Dashboard displaying historical analytics and financial telemetry.*
+*Figure 6: Published Power BI Executive Dashboard displaying historical analytics and financial telemetry.*
 
 ---
 
@@ -73,7 +82,7 @@ Before starting the deployment, ensure access to the following infrastructure co
 2. Route the live message stream directly into an **Eventhouse / KQL Database** named `AI_Realtime_KQLDB`.
 
 ![Real-time Fabric Flow](../images/Real-time%20Fabric%20Flow.png)
-*Figure 3: Real-time telemetry streaming architecture utilizing Eventstream and KQL Database.*
+*Figure 7: Real-time telemetry streaming architecture utilizing Eventstream and KQL Database.*
 
 ### Step 3.2: Real-Time Dashboard & Operational Alerting
 1. Execute schema creation and table mapping scripts from `kql_code_for_fabric/kql_for_event_dashboard.sql`.
@@ -81,7 +90,7 @@ Before starting the deployment, ensure access to the following infrastructure co
 3. Configure automated **Data Alerts**: Set threshold rules to send email/Teams notifications when message error counts breach system limits (>100 errors within a 10-minute window).
 
 ![Real-time Dashboard Screenshot](../images/Real-time%20Dashboard%20Screenshot.png)
-*Figure 4: Real-Time Operational Dashboard tracking live telemetry and system error spikes.*
+*Figure 8: Real-Time Operational Dashboard tracking live telemetry and system error spikes.*
 
 ---
 
@@ -96,4 +105,4 @@ Before starting the deployment, ensure access to the following infrastructure co
 3. Schedule daily automated pipeline execution at `04:00 UTC+7` (21:00 UTC).
 
 ![Fabric Pipeline Flow](../images/Fabric%20Pipeline%20Flow.png)
-*Figure 5: Master Data Pipeline orchestrating batch ingestion, transformations, warehouse loads, and failure alerts.*
+*Figure 9: Master Data Pipeline orchestrating batch ingestion, transformations, warehouse loads, and failure alerts.*
