@@ -82,4 +82,4 @@ Before starting the deployment, ensure you have access to the following componen
    * `Semantic Model Refresh Activity` (Triggers Power BI dataset update).
 2. Attach **On Failure** notification triggers from each activity node to dispatch execution failure logs to the engineering alert channel.
 3. Schedule daily execution at `04:00 UTC +7`(Or anytime you want).
-!Pipeline](Fabric Pipeline Flow.png)
+[!Pipeline](Fabric Pipeline Flow.png)
